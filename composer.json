@@ -1,0 +1,23 @@
+{
+    "name": "bitvavo/bitvavo-client",
+    "description": "A Modern Bitvavo Client",
+    "require": {
+        "php": "^8.0",
+        "illuminate/http": "^8.42",
+        "guzzlehttp/guzzle": "^7.3",
+        "nesbot/carbon": "^2.48",
+        "illuminate/container": "^8.42",
+        "moneyphp/money": "^4.0",
+        "jenssegers/model": "^1.4",
+        "symfony/var-dumper": "^5.2",
+        "illuminate/collections": "^8.42"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bitvavo\\": "src/Bitvavo"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}
