@@ -6,7 +6,7 @@ use DateTimeZone;
 use Bitvavo\Exceptions\BitvavoResponseException;
 use Carbon\Carbon;
 use Bitvavo\Interfaces\API;
-use \Illuminate\Http\Client\Factory;
+use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\Response;
 
 class Bitvavo extends App implements API
