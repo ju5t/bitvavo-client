@@ -42,7 +42,7 @@ This will give you all Trades, based on the `BTC-EUR` market.
 
 ## Dates & Timezones
 
-Bitvavo returs timestamps, not dates. As timestamps are hard(er) to work
+Bitvavo returns timestamps, not dates. As timestamps are hard(er) to work
 with when developing applications, we try to append a public property
 called `date`. This will be a [Carbon](https://carbon.nesbot.com/) object.
 
