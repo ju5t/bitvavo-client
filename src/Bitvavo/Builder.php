@@ -16,6 +16,14 @@ class Builder
 
     public function where($column, $value = null)
     {
+        if (is_array($column)) {
+            foreach ($column as $key => $value) {
+                $this->bindings['where'][$key] = $value;
+            }
+
+            return $this;
+        }
+
         $this->bindings['where'][$column] = $value;
         return $this;
     }
