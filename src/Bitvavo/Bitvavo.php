@@ -2,12 +2,14 @@
 
 namespace Bitvavo;
 
-use DateTimeZone;
-use Bitvavo\Exceptions\BitvavoResponseException;
 use Carbon\Carbon;
+use League\Csv\Writer;
+use SplTempFileObject;
 use Bitvavo\Interfaces\API;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\Response;
+use Bitvavo\Exceptions\BitvavoResponseException;
 
 class Bitvavo extends App implements API
 {
@@ -23,6 +25,14 @@ class Bitvavo extends App implements API
     )
     {
         $this->factory = new Factory();
+
+        Collection::macro('csv', function () {
+            /** @var Collection $this */
+            $csv = Writer::createFromFileObject(new SplTempFileObject);
+            $csv->insertOne(array_keys($this->first()->toArray()));
+            $csv->insertAll($this->toArray());
+            $csv->output();
+        });
     }
 
     public function time()

@@ -81,6 +81,37 @@ abstract class Model extends StaticModel
         return $collection;
     }
 
+    protected function castAttribute($key, $value)
+    {
+        if (is_null($value)) {
+            return $value;
+        }
+
+        switch ($this->getCastType($key)) {
+            case 'int':
+            case 'integer':
+                return (int) $value;
+            case 'real':
+            case 'float':
+            case 'double':
+                return (float) $value;
+            case 'string':
+                return (string) $value;
+            case 'bool':
+            case 'boolean':
+                return (bool) $value;
+            case 'object':
+                return $this->fromJson($value, true);
+            case 'array':
+            case 'json':
+                return $this->fromJson($value);
+            case 'collection':
+                return new Collection($this->fromJson($value));
+            default:
+                return $value;
+        }
+    }
+
     private static function createUnguardedModel(array $item) : Model
     {
         return static::unguarded(

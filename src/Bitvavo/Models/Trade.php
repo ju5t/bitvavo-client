@@ -27,7 +27,7 @@ class Trade extends Model
 
     protected $casts = [
         'taker' => 'boolean',
-        'settled' => 'boolean'
+        'settled' => 'boolean',
     ];
 
     protected $appends = [
