@@ -23,7 +23,7 @@ abstract class Model extends StaticModel
         return new static(...$attributes);
     }
 
-    public function first() : Model
+    public static function first() : Model
     {
         /** @var \Bitvavo\Builder $builder */
         $builder = static::query();
