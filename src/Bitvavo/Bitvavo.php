@@ -13,7 +13,7 @@ class Bitvavo extends App implements API
 {
     private Factory $factory;
 
-    private DateTimeZone $timezone = 'Europe/Amsterdam';
+    private static $timezone = 'Europe/Amsterdam';
 
     public function __construct(
         public string $apiKey,
@@ -74,12 +74,12 @@ class Bitvavo extends App implements API
         );
     }
 
-    public static function getTimezone() : DateTimeZone
+    public static function getTimezone() : string
     {
         return static::$timezone;
     }
 
-    public static function setTimezone($timezone) : void
+    public static function setTimezone(string $timezone) : void
     {
         static::$timezone = $timezone;
     }

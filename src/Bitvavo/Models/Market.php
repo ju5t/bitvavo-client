@@ -2,10 +2,10 @@
 
 namespace Bitvavo\Models;
 
-use Bitvavo\Bitvavo;
-
 class Market extends Model
 {
+    protected static $endpoint = 'markets';
+
     protected $fillable = [
         'base',
         'quote',
@@ -18,29 +18,6 @@ class Market extends Model
         'minOrderInBaseAsset',
         'minOrderInQuoteAsset',
     ];
-
-    public static function find(string $market) : Market
-    {
-        $api = Bitvavo::resolve(Bitvavo::class);
-
-        $params['market'] = $market;
-        $response = $api->get('markets', $params);
-
-        return static::unguarded(
-            function () use ($response) {
-                return static::make(...$response);
-            }
-        );
-    }
-
-    public static function all()
-    {
-        /** @var \Bitvavo\Bitvavo $api */
-        $api = Bitvavo::resolve(Bitvavo::class); // Inception...
-
-        $response = $api->get('markets');
-        return static::asCollection($response);
-    }
 
     public function __toString() : string
     {

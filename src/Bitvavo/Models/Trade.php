@@ -5,11 +5,12 @@ namespace Bitvavo\Models;
 use DateTimeZone;
 use Carbon\Carbon;
 use Bitvavo\Bitvavo;
-use Bitvavo\Exceptions\BitvavoClientException;
-use Illuminate\Support\Collection;
+use Bitvavo\Builder;
 
 class Trade extends Model
 {
+    protected static $endpoint = 'trades';
+
     protected $guarded = [
         'id',
         'orderId',
@@ -36,42 +37,17 @@ class Trade extends Model
     public function getDateAttribute()
     {
         return Carbon::parse($this->timestamp / 1000, new DateTimeZone('UTC'))
-            ->timezone(Bitvavo::getTimezone());
+            ->timezone(new DateTimeZone(Bitvavo::getTimezone()));
     }
 
-    public static function market(string|Market $market) : Trade
+    /** market() is a special helper method, designed to make
+     * our code more expressive */
+    public static function market(string|Market $market) : Builder
     {
+        /** @var \Bitvavo\Builder $builder */
         $builder = static::query();
-
-        $builder->unguarded(function () use ($builder, $market) {
-            $builder->setAttribute('market', $market->__toString());
-        });
+        $builder->where('market', $market->__toString());
 
         return $builder;
-    }
-
-    public static function all(?string $market = null) : Collection
-    {
-        /** @var \Bitvavo\Models\Trade $builder */
-        $builder = static::query();
-
-        $params = [
-            'market' => $builder->getMarket(market: $market)
-        ];
-
-        /** @var \Bitvavo\Bitvavo $api */
-        $api = Bitvavo::resolve(Bitvavo::class); // Inception...
-
-        $response = $api->get(endpoint: 'trades', params: $params);
-        return static::asCollection($response);
-    }
-
-    private function getMarket(?string $market)
-    {
-        if (empty($this->market) && empty($market)) {
-            throw new BitvavoClientException('Market not set');
-        }
-
-        return $market ?? $this->market;
     }
 }
