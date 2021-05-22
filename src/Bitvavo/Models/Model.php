@@ -5,10 +5,13 @@ namespace Bitvavo\Models;
 use Bitvavo\Bitvavo;
 use Bitvavo\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Traits\Macroable;
 use Jenssegers\Model\Model as StaticModel;
 
 abstract class Model extends StaticModel
 {
+    use Macroable;
+
     protected static $endpoint = '';
 
     public static Builder $builder;
