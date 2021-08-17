@@ -1,6 +1,7 @@
 {
     "name": "ju5t/bitvavo-client",
     "description": "A Modern Bitvavo Client",
+    "license": "ISC",
     "require": {
         "php": "^8.0",
         "illuminate/http": "^8.42",
