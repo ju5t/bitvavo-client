@@ -1,5 +1,5 @@
 {
-    "name": "bitvavo/bitvavo-client",
+    "name": "ju5t/bitvavo-client",
     "description": "A Modern Bitvavo Client",
     "require": {
         "php": "^8.0",
